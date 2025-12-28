@@ -1,14 +1,19 @@
 import { getDoc, doc, getFirestore } from 'firebase/firestore';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
-import { FirebaseClientProvider, initializeFirebase } from '@/firebase';
+import { FirebaseClientProvider } from '@/firebase';
 import type { SeoSettings } from '@/lib/definitions';
 import type { Metadata } from 'next';
+import { firebaseConfig } from '@/firebase/config';
 
 // This function can be used in other layouts or pages that need SEO data.
 async function getSeoMetadata(): Promise<Metadata> {
   try {
-    const { firestore } = initializeFirebase();
+    // Correctly initialize Firebase for server-side rendering.
+    // Check if an app is already initialized, otherwise create a new one.
+    const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+    const firestore = getFirestore(app);
     const seoRef = doc(firestore, 'settings', 'seo');
     const seoSnap = await getDoc(seoRef);
 

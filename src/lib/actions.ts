@@ -4,11 +4,12 @@ import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { initializeFirebase } from '@/firebase';
 import {
-  addDocumentNonBlocking,
-  deleteDocumentNonBlocking,
-  setDocumentNonBlocking,
-} from '@/firebase/non-blocking-updates';
-import { collection, doc } from 'firebase/firestore';
+  addDoc,
+  deleteDoc,
+  setDoc,
+  collection,
+  doc,
+} from 'firebase/firestore';
 
 const ContactSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -63,7 +64,7 @@ export async function sendContactMessage(prevState: State, formData: FormData) {
     const { firestore } = initializeFirebase();
     const messagesCollection = collection(firestore, 'contactMessages');
 
-    await addDocumentNonBlocking(messagesCollection, {
+    await addDoc(messagesCollection, {
       ...validatedFields.data,
       dateReceived: new Date().toISOString(),
       isReplied: false,
@@ -122,11 +123,11 @@ export async function saveProject(prevState: State, formData: FormData) {
     if (id) {
       // Update
       const projectRef = doc(firestore, 'portfolioProjects', id);
-      await setDocumentNonBlocking(projectRef, data, { merge: true });
+      await setDoc(projectRef, data, { merge: true });
     } else {
       // Create
       const projectsCollection = collection(firestore, 'portfolioProjects');
-      await addDocumentNonBlocking(projectsCollection, {
+      await addDoc(projectsCollection, {
         ...data,
         dateCreated: new Date().toISOString(),
       });
@@ -144,7 +145,7 @@ export async function deleteProject(id: string) {
     if (!id) return { message: { type: 'error', text: 'Project ID is required.' } };
     const { firestore } = initializeFirebase();
     try {
-        await deleteDocumentNonBlocking(doc(firestore, 'portfolioProjects', id));
+        await deleteDoc(doc(firestore, 'portfolioProjects', id));
         revalidatePath('/admin/projects');
         revalidatePath('/projects');
         revalidatePath('/');
@@ -192,10 +193,10 @@ export async function saveBlogPost(prevState: State, formData: FormData) {
   try {
     if (id) {
       const postRef = doc(firestore, 'blogPosts', id);
-      await setDocumentNonBlocking(postRef, data, { merge: true });
+      await setDoc(postRef, data, { merge: true });
     } else {
       const postsCollection = collection(firestore, 'blogPosts');
-      await addDocumentNonBlocking(postsCollection, {
+      await addDoc(postsCollection, {
         ...data,
         datePublished: new Date().toISOString(),
       });
@@ -213,7 +214,7 @@ export async function deleteBlogPost(id: string) {
     if (!id) return { message: { type: 'error', text: 'Blog post ID is required.' } };
     const { firestore } = initializeFirebase();
     try {
-        await deleteDocumentNonBlocking(doc(firestore, 'blogPosts', id));
+        await deleteDoc(doc(firestore, 'blogPosts', id));
         revalidatePath('/admin/blog');
         revalidatePath('/blog');
         revalidatePath('/');
@@ -248,7 +249,7 @@ export async function saveSeoSettings(prevState: State, formData: FormData) {
   const settingsRef = doc(firestore, 'settings', 'seo');
 
   try {
-    await setDocumentNonBlocking(settingsRef, validatedFields.data, { merge: true });
+    await setDoc(settingsRef, validatedFields.data, { merge: true });
     revalidatePath('/');
     // Revalidate all pages for SEO changes to take effect
     ['/', '/about', '/blog', '/contact', '/projects'].forEach(path => revalidatePath(path));
@@ -294,7 +295,7 @@ export async function saveSiteSettings(prevState: State, formData: FormData) {
   const settingsRef = doc(firestore, 'settings', 'site');
 
   try {
-    await setDocumentNonBlocking(settingsRef, dataToValidate, { merge: true });
+    await setDoc(settingsRef, dataToValidate, { merge: true });
     revalidatePath('/');
     return { message: { type: 'success', text: 'Site settings updated successfully.' } };
   } catch (error) {
