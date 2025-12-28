@@ -8,11 +8,11 @@ import {
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
-import { formatDistanceToNow } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
 import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import type { Message } from '@/lib/definitions';
 import { collection, orderBy, query } from 'firebase/firestore';
+import { ClientTime } from '@/components/client-time';
 
 export default function AdminInboxPage() {
   const firestore = useFirestore();
@@ -47,7 +47,7 @@ export default function AdminInboxPage() {
                   <div className="text-right">
                     {message.isReplied === false && <Badge className="mb-1">New</Badge>}
                     <p className="text-xs text-muted-foreground">
-                      {formatDistanceToNow(new Date(message.dateReceived), { addSuffix: true })}
+                      <ClientTime date={message.dateReceived} />
                     </p>
                   </div>
                 </div>
