@@ -1,7 +1,7 @@
 'use client';
 
-import { useFormStatus } from 'react-dom';
-import { useEffect, useRef, useActionState } from 'react';
+import { useFormStatus, useFormState } from 'react-dom';
+import { useEffect, useRef } from 'react';
 import type { Project } from '@/lib/definitions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,7 +25,7 @@ export function ProjectForm({ project }: { project?: Project }) {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const initialState: State = { message: null, errors: {} };
-  const [state, dispatch] = useActionState(saveProject, initialState);
+  const [state, dispatch] = useFormState(saveProject, initialState);
   
   useEffect(() => {
     if (state.message?.type === 'success') {

@@ -1,8 +1,7 @@
 'use client';
 
-import { useFormStatus } from 'react-dom';
+import { useFormStatus, useFormState } from 'react-dom';
 import { useEffect, useRef } from 'react';
-import { useActionState } from 'react';
 import type { SiteSettings } from '@/lib/definitions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,7 +25,7 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings }) {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const initialState: State = { message: null, errors: {} };
-  const [state, dispatch] = useActionState(saveSiteSettings, initialState);
+  const [state, dispatch] = useFormState(saveSiteSettings, initialState);
   
   useEffect(() => {
     if (state.message?.type === 'success') {
