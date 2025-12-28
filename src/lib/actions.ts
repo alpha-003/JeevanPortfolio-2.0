@@ -117,21 +117,28 @@ export async function saveProject(prevState: State, formData: FormData) {
 
   const { firestore } = initializeFirebase();
   const id = formData.get('id') as string;
-  const data = validatedFields.data;
+  const data = {
+    ...validatedFields.data,
+    slug: validatedFields.data.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
+  };
 
   try {
+    let docRef;
     if (id) {
       // Update
-      const projectRef = doc(firestore, 'portfolioProjects', id);
-      await setDoc(projectRef, data, { merge: true });
+      docRef = doc(firestore, 'portfolioProjects', id);
+      await setDoc(docRef, data, { merge: true });
     } else {
       // Create
       const projectsCollection = collection(firestore, 'portfolioProjects');
-      await addDoc(projectsCollection, {
+      docRef = await addDoc(projectsCollection, {
         ...data,
         dateCreated: new Date().toISOString(),
       });
     }
+    const finalId = id || docRef.id;
+    await setDoc(doc(firestore, 'portfolioProjects', finalId), { id: finalId }, { merge: true });
+
     revalidatePath('/admin/projects');
     revalidatePath('/projects');
     revalidatePath('/');
@@ -191,16 +198,21 @@ export async function saveBlogPost(prevState: State, formData: FormData) {
   };
 
   try {
+    let docRef;
     if (id) {
-      const postRef = doc(firestore, 'blogPosts', id);
-      await setDoc(postRef, data, { merge: true });
+      docRef = doc(firestore, 'blogPosts', id);
+      await setDoc(docRef, data, { merge: true });
     } else {
       const postsCollection = collection(firestore, 'blogPosts');
-      await addDoc(postsCollection, {
+       docRef = await addDoc(postsCollection, {
         ...data,
         datePublished: new Date().toISOString(),
       });
     }
+
+    const finalId = id || docRef.id;
+    await setDoc(doc(firestore, 'blogPosts', finalId), { id: finalId }, { merge: true });
+
     revalidatePath('/admin/blog');
     revalidatePath('/blog');
     revalidatePath('/');
