@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
+import { useUser } from '@/firebase';
 
 const navItems = [
   { href: '/', label: 'Home' },
@@ -20,6 +21,7 @@ const navItems = [
 export function MainNav() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useUser();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -46,7 +48,9 @@ export function MainNav() {
         </div>
         <div className="flex flex-1 items-center justify-end gap-2">
            <Button asChild>
-              <Link href="/admin">Admin Panel</Link>
+              <Link href={user ? "/admin" : "/login"}>
+                {user ? 'Admin Panel' : 'Login'}
+              </Link>
             </Button>
           <Button
             variant="ghost"
