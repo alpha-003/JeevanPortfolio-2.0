@@ -1,5 +1,6 @@
+'use client';
+
 import Image from 'next/image';
-import { projects, blogPosts } from '@/lib/data';
 import { ProjectCard3D } from '@/components/project-card-3d';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -7,6 +8,9 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Film, Palette, WandSparkles, ArrowRight } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { format } from 'date-fns';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import type { BlogPost, Project } from '@/lib/definitions';
+import { collection, limit, query } from 'firebase/firestore';
 
 
 const services = [
@@ -30,7 +34,20 @@ const services = [
 export default function HomePage() {
   const heroBg = PlaceHolderImages.find(p => p.id === 'hero-background');
   const ctaBg = PlaceHolderImages.find(p => p.id === 'cta-background');
-  const recentPosts = blogPosts.slice(0, 3);
+  
+  const firestore = useFirestore();
+
+  const projectsQuery = useMemoFirebase(() => 
+    query(collection(firestore, 'portfolioProjects'), limit(3)), 
+    [firestore]
+  );
+  const { data: projects } = useCollection<Project>(projectsQuery);
+
+  const blogQuery = useMemoFirebase(() =>
+    query(collection(firestore, 'blogPosts'), limit(3)),
+    [firestore]
+  );
+  const { data: recentPosts } = useCollection<BlogPost>(blogQuery);
 
   return (
     <div className="flex flex-col">
@@ -74,7 +91,7 @@ export default function HomePage() {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.slice(0,3).map((project) => (
+          {projects?.slice(0,3).map((project) => (
             <ProjectCard3D key={project.id} project={project} />
           ))}
         </div>
@@ -121,7 +138,7 @@ export default function HomePage() {
           </p>
         </div>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {recentPosts.map((post) => (
+        {recentPosts?.map((post) => (
           <Card key={post.id} className="flex flex-col overflow-hidden">
             <Link href={`/blog/${post.slug}`} className="block">
               <Image
@@ -138,11 +155,11 @@ export default function HomePage() {
                 <Link href={`/blog/${post.slug}`}>{post.title}</Link>
               </CardTitle>
               <p className="text-sm text-muted-foreground">
-                {format(new Date(post.publishedAt), 'MMMM d, yyyy')}
+                {format(new Date(post.datePublished), 'MMMM d, yyyy')}
               </p>
             </CardHeader>
             <CardContent className="flex-grow">
-              <CardDescription>{post.summary}</CardDescription>
+              <CardDescription>{post.seoDescription}</CardDescription>
             </CardContent>
             <CardFooter>
               <Button variant="secondary" asChild>

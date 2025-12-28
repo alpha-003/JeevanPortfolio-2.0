@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import {
   Card,
@@ -7,11 +8,24 @@ import {
   CardDescription
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { projects, blogPosts, messages } from '@/lib/data';
 import { Briefcase, PenSquare, Mails, ArrowUpRight } from 'lucide-react';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import type { Project, BlogPost, Message } from '@/lib/definitions';
+import { collection } from 'firebase/firestore';
 
 export default function AdminDashboardPage() {
-  const unreadMessages = messages.filter(m => !m.read).length;
+  const firestore = useFirestore();
+
+  const projectsQuery = useMemoFirebase(() => collection(firestore, 'portfolioProjects'), [firestore]);
+  const { data: projects } = useCollection<Project>(projectsQuery);
+
+  const blogPostsQuery = useMemoFirebase(() => collection(firestore, 'blogPosts'), [firestore]);
+  const { data: blogPosts } = useCollection<BlogPost>(blogPostsQuery);
+
+  const messagesQuery = useMemoFirebase(() => collection(firestore, 'contactMessages'), [firestore]);
+  const { data: messages } = useCollection<Message>(messagesQuery);
+
+  const unreadMessages = messages?.filter(m => m.isReplied === false).length || 0;
 
   return (
     <div className="space-y-6">
@@ -24,7 +38,7 @@ export default function AdminDashboardPage() {
             <Briefcase className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{projects.length}</div>
+            <div className="text-2xl font-bold">{projects?.length ?? 0}</div>
             <p className="text-xs text-muted-foreground">
               Number of projects in your portfolio
             </p>
@@ -38,7 +52,7 @@ export default function AdminDashboardPage() {
             <PenSquare className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{blogPosts.length}</div>
+            <div className="text-2xl font-bold">{blogPosts?.length ?? 0}</div>
             <p className="text-xs text-muted-foreground">
               Total articles published
             </p>
@@ -50,7 +64,7 @@ export default function AdminDashboardPage() {
             <Mails className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{messages.length}</div>
+            <div className="text-2xl font-bold">{messages?.length ?? 0}</div>
             <p className="text-xs text-muted-foreground">
               {unreadMessages > 0 ? `${unreadMessages} unread messages` : 'All messages read'}
             </p>

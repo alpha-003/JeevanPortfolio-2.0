@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
+import { initializeFirebase } from '@/firebase';
+import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { collection } from 'firebase/firestore';
 
 const ContactSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -37,20 +40,34 @@ export async function sendContactMessage(prevState: State, formData: FormData) {
       },
     };
   }
-  
-  // Here you would typically send an email or save to a database.
-  // For this demo, we'll just log it and simulate success.
-  console.log('New message received:');
-  console.log(validatedFields.data);
 
-  // Revalidate the inbox page to show the new message in a real app
-  // revalidatePath('/admin/inbox');
+  try {
+    const { firestore } = initializeFirebase();
+    const messagesCollection = collection(firestore, 'contactMessages');
+    
+    await addDocumentNonBlocking(messagesCollection, {
+      ...validatedFields.data,
+      dateReceived: new Date().toISOString(),
+      isReplied: false,
+    });
+    
+    revalidatePath('/admin/inbox');
 
-  return {
-    errors: {},
-    message: {
-      type: 'success',
-      text: 'Thank you for your message! I will get back to you soon.',
-    },
-  };
+    return {
+      errors: {},
+      message: {
+        type: 'success',
+        text: 'Thank you for your message! I will get back to you soon.',
+      },
+    };
+  } catch (error) {
+    console.error('Error saving message to Firestore:', error);
+    return {
+      errors: {},
+      message: {
+        type: 'error',
+        text: 'An unexpected error occurred. Please try again.',
+      },
+    };
+  }
 }

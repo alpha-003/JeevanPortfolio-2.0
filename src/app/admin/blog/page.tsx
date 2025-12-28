@@ -1,3 +1,4 @@
+'use client';
 import {
   Table,
   TableBody,
@@ -14,7 +15,6 @@ import {
   CardDescription
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { blogPosts } from '@/lib/data';
 import { MoreHorizontal, PlusCircle } from 'lucide-react';
 import {
   DropdownMenu,
@@ -24,8 +24,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { format } from 'date-fns';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import type { BlogPost } from '@/lib/definitions';
+import { collection } from 'firebase/firestore';
 
 export default function AdminBlogPage() {
+  const firestore = useFirestore();
+  const blogPostsQuery = useMemoFirebase(() => collection(firestore, 'blogPosts'), [firestore]);
+  const { data: blogPosts, isLoading } = useCollection<BlogPost>(blogPostsQuery);
+
   return (
     <Card>
       <CardHeader>
@@ -40,10 +47,12 @@ export default function AdminBlogPage() {
         </div>
       </CardHeader>
       <CardContent>
+        {isLoading && <p>Loading posts...</p>}
         <Table>
           <TableHeader>
             <TableRow>
               <TableHead>Title</TableHead>
+              <TableHead>Author</TableHead>
               <TableHead className="hidden md:table-cell">Published</TableHead>
               <TableHead>
                 <span className="sr-only">Actions</span>
@@ -51,11 +60,12 @@ export default function AdminBlogPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {blogPosts.map((post) => (
+            {blogPosts?.map((post) => (
               <TableRow key={post.id}>
                 <TableCell className="font-medium">{post.title}</TableCell>
+                <TableCell>{post.author}</TableCell>
                 <TableCell className="hidden md:table-cell">
-                  {format(new Date(post.publishedAt), 'MMM d, yyyy')}
+                  {format(new Date(post.datePublished), 'MMM d, yyyy')}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>

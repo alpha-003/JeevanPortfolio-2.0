@@ -1,4 +1,4 @@
-import { messages } from '@/lib/data';
+'use client';
 import {
   Card,
   CardContent,
@@ -10,10 +10,18 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import { formatDistanceToNow } from 'date-fns';
 import { Badge } from '@/components/ui/badge';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import type { Message } from '@/lib/definitions';
+import { collection, orderBy, query } from 'firebase/firestore';
 
 export default function AdminInboxPage() {
-  const sortedMessages = [...messages].sort((a, b) => new Date(b.receivedAt).getTime() - new Date(a.receivedAt).getTime());
-
+  const firestore = useFirestore();
+  const messagesQuery = useMemoFirebase(() =>
+    query(collection(firestore, 'contactMessages'), orderBy('dateReceived', 'desc')),
+    [firestore]
+  );
+  const { data: messages, isLoading } = useCollection<Message>(messagesQuery);
+  
   return (
     <div className="space-y-4">
       <Card>
@@ -22,8 +30,9 @@ export default function AdminInboxPage() {
           <CardDescription>Messages from your site's contact form.</CardDescription>
         </CardHeader>
       </Card>
-      {sortedMessages.map((message) => (
-        <Card key={message.id} className={cn(!message.read && "border-primary")}>
+      {isLoading && <p className="text-center">Loading messages...</p>}
+      {messages?.map((message) => (
+        <Card key={message.id} className={cn(message.isReplied === false && "border-primary")}>
           <CardHeader>
             <div className="flex items-start gap-4">
               <Avatar className="h-10 w-10">
@@ -36,9 +45,9 @@ export default function AdminInboxPage() {
                     <CardDescription>{message.email}</CardDescription>
                   </div>
                   <div className="text-right">
-                    {!message.read && <Badge className="mb-1">New</Badge>}
+                    {message.isReplied === false && <Badge className="mb-1">New</Badge>}
                     <p className="text-xs text-muted-foreground">
-                      {formatDistanceToNow(new Date(message.receivedAt), { addSuffix: true })}
+                      {formatDistanceToNow(new Date(message.dateReceived), { addSuffix: true })}
                     </p>
                   </div>
                 </div>

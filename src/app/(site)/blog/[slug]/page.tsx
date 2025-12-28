@@ -1,30 +1,22 @@
-import { notFound } from 'next/navigation';
+'use client';
+import { notFound, useParams } from 'next/navigation';
 import Image from 'next/image';
-import { blogPosts } from '@/lib/data';
-import type { Metadata } from 'next';
 import { format } from 'date-fns';
+import { useDoc, useFirestore, useMemoFirebase } from '@/firebase';
+import type { BlogPost } from '@/lib/definitions';
+import { doc } from 'firebase/firestore';
 
-type Props = {
-  params: { slug: string };
-};
+export default function BlogPostPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const firestore = useFirestore();
+  
+  const postRef = useMemoFirebase(() => doc(firestore, 'blogPosts', slug), [firestore, slug]);
+  const { data: post, isLoading } = useDoc<BlogPost>(postRef);
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = blogPosts.find((p) => p.slug === params.slug);
-
-  if (!post) {
-    return {
-      title: 'Post Not Found',
-    };
+  if (isLoading) {
+    return <div className="container py-12 text-center">Loading post...</div>;
   }
-
-  return {
-    title: `${post.title} | EditFlow Portfolio`,
-    description: post.summary,
-  };
-}
-
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
 
   if (!post) {
     notFound();
@@ -37,7 +29,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           {post.title}
         </h1>
         <p className="text-muted-foreground">
-          Published on {format(new Date(post.publishedAt), 'MMMM d, yyyy')}
+          Published on {format(new Date(post.datePublished), 'MMMM d, yyyy')} by {post.author}
         </p>
       </div>
 
@@ -47,7 +39,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           alt={post.title}
           width={1200}
           height={600}
-          data-ai-hint={post.imageHint}
+          data-ai-hint={post.tags?.[0] || 'blog'}
           className="w-full object-cover"
         />
       </div>
@@ -58,10 +50,4 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       />
     </article>
   );
-}
-
-export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
 }

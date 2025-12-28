@@ -1,3 +1,4 @@
+'use client';
 import {
   Table,
   TableBody,
@@ -15,7 +16,6 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { projects } from '@/lib/data';
 import Image from 'next/image';
 import { MoreHorizontal, PlusCircle } from 'lucide-react';
 import {
@@ -26,8 +26,15 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { format } from 'date-fns';
+import { useCollection, useFirestore, useMemoFirebase } from '@/firebase';
+import type { Project } from '@/lib/definitions';
+import { collection } from 'firebase/firestore';
 
 export default function AdminProjectsPage() {
+  const firestore = useFirestore();
+  const projectsQuery = useMemoFirebase(() => collection(firestore, 'portfolioProjects'), [firestore]);
+  const { data: projects, isLoading } = useCollection<Project>(projectsQuery);
+
   return (
     <Card>
       <CardHeader>
@@ -42,6 +49,7 @@ export default function AdminProjectsPage() {
         </div>
       </CardHeader>
       <CardContent>
+        {isLoading && <p>Loading projects...</p>}
         <Table>
           <TableHeader>
             <TableRow>
@@ -49,15 +57,15 @@ export default function AdminProjectsPage() {
                 <span className="sr-only">Image</span>
               </TableHead>
               <TableHead>Title</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="hidden md:table-cell">Published</TableHead>
+              <TableHead>Tags</TableHead>
+              <TableHead className="hidden md:table-cell">Created</TableHead>
               <TableHead>
                 <span className="sr-only">Actions</span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {projects.map((project) => (
+            {projects?.map((project) => (
               <TableRow key={project.id}>
                 <TableCell className="hidden sm:table-cell">
                   <Image
@@ -65,16 +73,18 @@ export default function AdminProjectsPage() {
                     className="aspect-square rounded-md object-cover"
                     height="64"
                     src={project.imageUrl}
-                    data-ai-hint={project.imageHint}
+                    data-ai-hint={project.tags?.[0] || 'project'}
                     width="64"
                   />
                 </TableCell>
                 <TableCell className="font-medium">{project.title}</TableCell>
                 <TableCell>
-                  <Badge variant="outline">{project.category}</Badge>
+                  <div className="flex gap-1">
+                    {project.tags?.map(tag => <Badge key={tag} variant="outline">{tag}</Badge>)}
+                  </div>
                 </TableCell>
                 <TableCell className="hidden md:table-cell">
-                  {format(new Date(project.publishedAt), 'MMM d, yyyy')}
+                  {format(new Date(project.dateCreated), 'MMM d, yyyy')}
                 </TableCell>
                 <TableCell>
                   <DropdownMenu>

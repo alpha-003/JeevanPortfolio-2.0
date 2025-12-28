@@ -1,24 +1,24 @@
 export type Project = {
   id: string;
-  slug: string;
   title: string;
-  category: string;
   description: string;
-  longDescription: string;
   imageUrl: string;
-  imageHint: string;
-  publishedAt: string;
+  modelUrl?: string;
+  tags: string[];
+  dateCreated: string;
 };
 
 export type BlogPost = {
   id: string;
-  slug: string;
   title: string;
-  summary: string;
   content: string;
-  imageUrl: string;
-  imageHint: string;
-  publishedAt: string;
+  author: string;
+  datePublished: string;
+  tags: string[];
+  seoDescription?: string;
+  imageUrl: string; // Added for display
+  imageHint: string; // Added for display
+  slug: string; // Added for display
 };
 
 export type Message = {
@@ -26,6 +26,6 @@ export type Message = {
   name: string;
   email: string;
   message: string;
-  receivedAt: string;
-  read: boolean;
+  dateReceived: string;
+  isReplied: boolean;
 };
