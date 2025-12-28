@@ -4,26 +4,26 @@ import { ProjectCard3D } from '@/components/project-card-3d';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Cuboid, WandSparkles, PenTool, ArrowRight } from 'lucide-react';
+import { Film, Palette, WandSparkles, ArrowRight } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { format } from 'date-fns';
 
 
 const services = [
   {
-    icon: Cuboid,
-    title: '3D Modeling & Visualization',
-    description: 'Bringing concepts to life with high-fidelity models for products, architecture, and characters.',
+    icon: Film,
+    title: 'Post-Production & Editing',
+    description: 'Crafting compelling narratives through precise editing, pacing, and storytelling.',
+  },
+  {
+    icon: Palette,
+    title: 'Color Grading & Correction',
+    description: 'Enhancing the mood and tone of your footage with professional color treatment.',
   },
   {
     icon: WandSparkles,
     title: 'Motion Graphics & VFX',
-    description: 'Creating captivating animations and visual effects that tell a story and engage audiences.',
-  },
-  {
-    icon: PenTool,
-    title: 'Creative & Art Direction',
-    description: 'Guiding the visual style and narrative of projects to ensure a cohesive and impactful result.',
+    description: 'Adding a layer of polish and excitement with custom animations and visual effects.',
   },
 ]
 
@@ -48,11 +48,10 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 flex flex-col items-center text-center text-white">
           <h1 className="font-headline text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl">
-            Designing Dimensions
+            Crafting Stories, Frame by Frame
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-gray-300 md:text-xl">
-            A creative journey through the realms of graphic design and 3D artistry.
-            Explore a curated collection of projects that blend imagination with technical skill.
+            A passionate video editor dedicated to bringing creative visions to life through the art of post-production.
           </p>
           <div className="mt-8 flex gap-4">
             <Button size="lg" asChild>
@@ -68,10 +67,10 @@ export default function HomePage() {
       <section id="portfolio" className="container py-16 md:py-24">
         <div className="mb-12 text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-            Featured Projects
+            Featured Work
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-            From concept to creation, here are some of my favorite projects.
+            A look into some of my favorite editing and color grading projects.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -92,10 +91,10 @@ export default function HomePage() {
         <div className="container">
           <div className="mb-12 text-center">
             <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-              Creative Services
+              Post-Production Services
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-              Offering a range of services to bring your vision to life.
+              Offering a range of services to bring your vision to the screen.
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-3">
@@ -115,10 +114,10 @@ export default function HomePage() {
       <section id="blog" className="container py-16 md:py-24">
         <div className="mb-12 text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-            From the Studio
+            From the Edit Suite
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-            The latest thoughts, tutorials, and behind-the-scenes on design and 3D art.
+            The latest thoughts, tutorials, and behind-the-scenes on video post-production.
           </p>
         </div>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

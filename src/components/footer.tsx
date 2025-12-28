@@ -28,10 +28,10 @@ export function Footer() {
                 <div className="md:col-span-4">
                   <Link href="/" className="mr-6 flex items-center space-x-2">
                     <Logo />
-                    <span className="font-bold">3D Portfolio X</span>
+                    <span className="font-bold">EditFlow Portfolio</span>
                   </Link>
                   <p className="mt-4 text-sm text-muted-foreground">
-                    A creative journey through the realms of graphic design and 3D artistry.
+                    A creative journey through the art of video post-production.
                   </p>
                 </div>
 
@@ -75,7 +75,7 @@ export function Footer() {
 
               <div className="mt-12 border-t border-border/40 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
                 <p className="text-center text-sm text-muted-foreground md:text-left">
-                    &copy; {currentYear} 3D Portfolio X. All rights reserved.
+                    &copy; {currentYear} EditFlow Portfolio. All rights reserved.
                 </p>
                 <div className="flex items-center gap-2">
                     {socialLinks.map((social) => (

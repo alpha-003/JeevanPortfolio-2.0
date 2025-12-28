@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${post.title} | 3D Portfolio X`,
+    title: `${post.title} | EditFlow Portfolio`,
     description: post.summary,
   };
 }

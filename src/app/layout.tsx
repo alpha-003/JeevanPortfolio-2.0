@@ -3,9 +3,9 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: '3D Portfolio X',
-  description: 'Portfolio of a creative graphic designer and 3D artist.',
-  keywords: ['graphic design', '3d artist', 'portfolio', 'freelance', 'react', 'nextjs'],
+  title: 'EditFlow Portfolio',
+  description: 'Portfolio of a creative video editor and colorist.',
+  keywords: ['video editing', 'color grading', 'post-production', 'freelance', 'react', 'nextjs'],
 };
 
 export default function RootLayout({

@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 
 export const metadata = {
-  title: 'Blog | 3D Portfolio X',
-  description: 'Thoughts and insights on graphic design, 3D art, and creative technology.',
+  title: 'Blog | EditFlow Portfolio',
+  description: 'Thoughts and insights on video editing, color grading, and creative storytelling.',
 };
 
 export default function BlogPage() {
@@ -15,10 +15,10 @@ export default function BlogPage() {
     <div className="container py-16 md:py-24">
       <div className="mb-12 text-center">
         <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl">
-          From the Studio
+          From the Edit Suite
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-          Thoughts, tutorials, and behind-the-scenes on design and 3D art.
+          Thoughts, tutorials, and behind-the-scenes on video post-production.
         </p>
       </div>
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

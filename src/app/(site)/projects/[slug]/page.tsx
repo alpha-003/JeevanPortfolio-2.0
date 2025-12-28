@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${project.title} | 3D Portfolio X`,
+    title: `${project.title} | EditFlow Portfolio`,
     description: project.description,
   };
 }
@@ -39,7 +39,7 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
           {project.title}
         </h1>
         <p className="text-muted-foreground">
-          Published on {format(new Date(project.publishedAt), 'MMMM d, yyyy')}
+          Completed on {format(new Date(project.publishedAt), 'MMMM d, yyyy')}
         </p>
       </div>
 

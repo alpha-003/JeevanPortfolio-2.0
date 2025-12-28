@@ -2,75 +2,75 @@
   "placeholderImages": [
     {
       "id": "project-1",
-      "description": "Abstract 3D render with vibrant colors",
-      "imageUrl": "https://images.unsplash.com/photo-1633596683562-4a47eb4983c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMDNkfGVufDB8fHx8MTc2NjkxNjE4NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract 3d"
+      "description": "Professional corporate video setting",
+      "imageUrl": "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjB2aWRlb3xlbnwwfHx8fDE3NjkzMTI4ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "corporate video"
     },
     {
       "id": "project-2",
-      "description": "Futuristic city scape render",
-      "imageUrl": "https://images.unsplash.com/photo-1573767291321-c0af2eaf5266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NjY5MDkxMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "futuristic city"
+      "description": "Band performing on stage with cool lighting",
+      "imageUrl": "https://images.unsplash.com/photo-1540039155733-5bb30b5338d8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtdXNpYyUyMHZpZGVvfGVufDB8fHx8MTc2OTMxMjkxNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "music video"
     },
     {
       "id": "project-3",
-      "description": "Character model in a dynamic pose",
-      "imageUrl": "https://images.unsplash.com/photo-1650081221669-fccab00c76a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaGFyYWN0ZXIlMjBtb2RlbHxlbnwwfHx8fDE3NjY4Mjc5NTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "character model"
+      "description": "Scenic mountain landscape with a road",
+      "imageUrl": "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx0cmF2ZWwlMjBkb2N1bWVudGFyeXxlbnwwfHx8fDE3NjkzMTI5MzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "travel documentary"
     },
     {
       "id": "project-4",
-      "description": "Product visualization of a modern gadget",
-      "imageUrl": "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwcm9kdWN0JTIwZGVzaWdufGVufDB8fHx8MTc2NjkzMzY5OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "product design"
+      "description": "Modern and luxurious living room",
+      "imageUrl": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjByZWFsJTIwZXN0YXRlfGVufDB8fHx8MTc2OTMxMjk0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "luxury real estate"
     },
     {
       "id": "project-5",
-      "description": "Architectural visualization of a modern house",
-      "imageUrl": "https://images.unsplash.com/photo-1614595737766-4d7e1fd1406f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3R1cmFsJTIwZGVzaWdufGVufDB8fHx8MTc2NjkzMzY5OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "architectural design"
+      "description": "Person using a fitness app on their phone",
+      "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaXRuZXNzJTIwYXBwfGVufDB8fHx8MTc2OTMxMjk2MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fitness app"
     },
     {
       "id": "project-6",
-      "description": "Abstract particle simulation",
-      "imageUrl": "https://images.unsplash.com/photo-1653200256306-6dc84510dfb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwYXJ0aWNsZSUyMHNpbXVsYXRpb258ZW58MHx8fHwxNzY2OTMzNjk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "particle simulation"
+      "description": "A still from a suspenseful movie scene",
+      "imageUrl": "https://images.unsplash.com/photo-1535016120720-40c646be5580?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaWxtJTIwc2NlbmV8ZW58MHx8fHwxNzY5MzEyOTc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "film scene"
     },
     {
       "id": "blog-1",
-      "description": "Design software on a screen",
-      "imageUrl": "https://images.unsplash.com/photo-1581093806997-124204d9fa9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkZXNpZ24lMjBzb2Z0d2FyZXxlbnwwfHx8fDE3NjY4NDc5OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "design software"
+      "description": "A monitor showing video editing software with color wheels",
+      "imageUrl": "https://images.unsplash.com/photo-1626785774573-4b799315345d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2xvciUyMGdyYWRpbmd8ZW58MHx8fHwxNzY5MzEzMDAxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "color grading"
     },
     {
       "id": "blog-2",
-      "description": "Color swatches and design tools",
-      "imageUrl": "https://images.unsplash.com/photo-1635722785255-a79d9fd2d2a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb2xvciUyMHN3YXRjaGVzfGVufDB8fHx8MTc2NjkzMzY5OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "color swatches"
+      "description": "A film strip on a light table",
+      "imageUrl": "https://images.unsplash.com/photo-1522813593699-9c13b1439922?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxmaWxtJTIwZWRpdGluZ3xlbnwwfHx8fDE3NjkzMTMwMTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "film editing"
     },
     {
       "id": "blog-3",
-      "description": "3D modeling interface",
-      "imageUrl": "https://images.unsplash.com/photo-1563520239648-a24e51d4b570?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHwzZCUyMG1vZGVsaW5nfGVufDB8fHx8MTc2NjkzMzY5OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "3d modeling"
+      "description": "A computer keyboard with highlighted keys",
+      "imageUrl": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxwcm9ncmFtbWluZyUyMGtleWJvYXJkfGVufDB8fHx8MTc2OTMxMzAzMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "keyboard shortcuts"
     },
     {
       "id": "hero-background",
-      "description": "Abstract dark background with purple light trails",
-      "imageUrl": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMGRhcmt8ZW58MHx8fHwxNzY2ODQ4NTMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract dark"
+      "description": "Abstract dark background with cinematic light flares",
+      "imageUrl": "https://images.unsplash.com/photo-1534289911996-85b651ea151a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaW5lbWF0aWMlMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc2OTMxMzA1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cinematic background"
     },
     {
       "id": "about-portrait",
-      "description": "Portrait of a creative person in a studio",
-      "imageUrl": "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjcmVhdGl2ZSUyMHBvcnRyYWl0fGVufDB8fHx8MTc2OTIyMDY1NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "creative portrait"
+      "description": "Portrait of a video editor in their studio",
+      "imageUrl": "https://images.unsplash.com/photo-1616445524253-fc03c1534b46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx2aWRlbyUyMGVkaXRvcnxlbnwwfHx8fDE3NjkzMTMwNzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "video editor"
     },
     {
       "id": "cta-background",
-      "description": "Abstract geometric background with purple tones",
+      "description": "Abstract background with a film reel aesthetic",
       "imageUrl": "https://images.unsplash.com/photo-1557682250-33bd709cbe85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMHB1cnBsZXxlbnwwfHx8fDE3NjkyMjA3MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract purple"
+      "imageHint": "film reel"
     }
   ]
 }

@@ -4,19 +4,19 @@ import { Badge } from '@/components/ui/badge';
 import { Check } from 'lucide-react';
 
 export const metadata = {
-  title: 'About | 3D Portfolio X',
-  description: 'Learn more about the creative mind behind 3D Portfolio X, a specialist in graphic design and 3D art.',
+  title: 'About | EditFlow Portfolio',
+  description: 'Learn more about the creative mind behind EditFlow, a specialist in video editing and post-production.',
 };
 
 const skills = [
-  '3D Modeling (Blender, Cinema 4D, ZBrush)',
-  'Texturing & Materials (Substance Painter, Octane)',
-  'Rendering (V-Ray, Redshift, Keyshot)',
-  'Motion Graphics (Houdini, After Effects)',
-  'Architectural Visualization',
-  'Product Visualization',
-  'Character Design',
-  'Environment Design',
+  'Video Editing (Premiere Pro, DaVinci Resolve, Final Cut Pro)',
+  'Color Grading & Correction',
+  'Motion Graphics (After Effects)',
+  'Sound Design & Mixing',
+  'Visual Effects (VFX) Compositing',
+  'Storytelling & Pacing',
+  'Drone Footage Editing',
+  'Multi-cam Editing',
 ];
 
 export default function AboutPage() {
@@ -26,10 +26,10 @@ export default function AboutPage() {
     <div className="container max-w-6xl py-16 md:py-24">
       <div className="mb-12 text-center">
         <h1 className="font-headline text-4xl font-bold tracking-tighter sm:text-5xl">
-          A Fusion of Art and Technology
+          A Passion for Visual Storytelling
         </h1>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-          Crafting digital experiences where creativity meets precision.
+          Crafting compelling narratives, one frame at a time.
         </p>
       </div>
 
@@ -38,16 +38,16 @@ export default function AboutPage() {
           <div className="space-y-3">
             <h2 className="font-headline text-3xl font-semibold">My Philosophy</h2>
             <p className="text-muted-foreground">
-              I believe that great design is not just about aesthetics; it's about telling a story and evoking emotion. My work is driven by a passion for pushing the boundaries of digital art, blending technical skill with a strong artistic vision. Every project is an opportunity to create something unique and memorable, a digital artifact that resonates with its audience.
+              I believe that great video editing is invisible. It's about seamlessly weaving together shots, sounds, and colors to create an experience that captivates and moves the audience. My work is driven by a deep respect for the story, ensuring that every cut, transition, and effect serves the narrative. Every project is a unique puzzle, and I love finding the perfect rhythm and pace to bring it to life.
             </p>
             <p className="text-muted-foreground">
-              From the smallest detail in a product render to the grand scale of a virtual world, I strive for excellence and a deep understanding of the project's goals. Collaboration is key, and I enjoy working with clients to bring their ideas to life in ways that exceed their expectations.
+              From fast-paced commercials to emotive documentaries, I strive for technical excellence and creative innovation. Collaboration is at the heart of my process, and I enjoy working closely with directors and clients to translate their vision into a polished final product.
             </p>
           </div>
            <div className="space-y-3">
             <h2 className="font-headline text-3xl font-semibold">My Journey</h2>
             <p className="text-muted-foreground">
-              My journey into the world of 3D and design began over a decade ago, fueled by a fascination with video games and visual effects. This curiosity led me to pursue a formal education in graphic design, which I later combined with self-taught expertise in 3D software. Today, my portfolio is a testament to that journey—a diverse collection of projects spanning various industries, each with its own story and set of challenges.
+              My journey into video editing started with a simple camcorder and a love for movies. This passion led me to pursue a degree in film studies, where I discovered my fascination with the art of post-production. Over the past decade, I've honed my skills across a wide range of projects, from corporate videos and music videos to short films and social media content. Each project has been a learning experience, pushing me to become a more versatile and effective storyteller.
             </p>
           </div>
         </div>
@@ -63,8 +63,8 @@ export default function AboutPage() {
             />
           )}
           <div className="absolute -bottom-4 -right-4 hidden rounded-lg border bg-card p-4 md:block">
-            <p className="text-sm font-semibold">Alex Xenon</p>
-            <p className="text-xs text-muted-foreground">3D Artist & Designer</p>
+            <p className="text-sm font-semibold">Alex Chroma</p>
+            <p className="text-xs text-muted-foreground">Video Editor & Colorist</p>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@ export default function AboutPage() {
                 Core Skills & Expertise
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-                A versatile skill set to tackle any creative challenge.
+                A comprehensive post-production skillset.
             </p>
         </div>
         <div className="grid grid-cols-2 gap-x-8 gap-y-4 md:grid-cols-3 lg:grid-cols-4">

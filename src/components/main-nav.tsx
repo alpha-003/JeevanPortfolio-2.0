@@ -27,7 +27,7 @@ export function MainNav() {
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Logo />
-            <span className="hidden font-bold sm:inline-block">3D Portfolio X</span>
+            <span className="hidden font-bold sm:inline-block">EditFlow Portfolio</span>
           </Link>
           <nav className="hidden items-center gap-6 text-sm md:flex">
             {navItems.map((item) => (

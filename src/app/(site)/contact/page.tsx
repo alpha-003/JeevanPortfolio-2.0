@@ -2,8 +2,8 @@ import { ContactForm } from '@/components/contact-form';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 export const metadata = {
-  title: 'Contact | 3D Portfolio X',
-  description: 'Get in touch for collaborations, freelance work, or any inquiries.',
+  title: 'Contact | EditFlow Portfolio',
+  description: 'Get in touch for collaborations, freelance video editing work, or any inquiries.',
 };
 
 export default function ContactPage() {
@@ -29,8 +29,8 @@ export default function ContactPage() {
               <p className="text-muted-foreground">
                 Drop a line for project inquiries, collaborations, or questions.
               </p>
-              <a href="mailto:hello@3dportfoliox.com" className="mt-1 block text-accent hover:underline">
-                hello@3dportfoliox.com
+              <a href="mailto:hello@editflow.com" className="mt-1 block text-accent hover:underline">
+                hello@editflow.com
               </a>
             </div>
           </div>
