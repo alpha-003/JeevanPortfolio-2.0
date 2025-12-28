@@ -57,8 +57,7 @@ service cloud.firestore {
      * /roles_admin collection. For development, we also whitelist a specific UID.
      */
     function isAdmin() {
-      return isSignedIn() && 
-        (exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid)) || request.auth.uid == "rMr0vdKtoOd7I3eRlonGHZNdyss2");
+      return isSignedIn() && (request.auth.uid == "rMr0vdKtoOd7I3eRlonGHZNdyss2" || exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid)));
     }
 
     // -------------------------------------------------------------------------
