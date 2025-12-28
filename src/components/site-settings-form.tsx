@@ -1,7 +1,8 @@
 'use client';
 
 import { useFormStatus } from 'react-dom';
-import { useEffect, useRef, useActionState, use } from 'react';
+import { useEffect, useRef } from 'react';
+import { useActionState } from 'react';
 import type { SiteSettings } from '@/lib/definitions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { saveSiteSettings, type State } from '@/lib/actions';
 import { useRouter } from 'next/navigation';
-import { Github, Twitter, Dribbble } from 'lucide-react';
+import { Github, Twitter, Dribbble, Link as LinkIcon } from 'lucide-react';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -31,7 +32,7 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings }) {
     if (state.message?.type === 'success') {
       toast({ title: 'Success!', description: state.message.text });
       router.refresh();
-    } else if (state.message?.type === 'error') {
+    } else if (state.message?.type === 'error' && state.message.text) {
       toast({ variant: 'destructive', title: 'Error!', description: state.message.text });
     }
   }, [state, toast, router]);
@@ -72,10 +73,10 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings }) {
         <div className="space-y-4">
             {socialLinks.map((link, index) => (
                 <div key={index} className="flex items-end gap-4">
-                    <Input type="hidden" name={`socialLinks[${index}][name]`} value={link.name} />
+                    <input type="hidden" name={`socialLinks[${index}][name]`} value={link.name} />
                     <div className="flex-grow space-y-2">
                         <Label htmlFor={`social-url-${index}`} className="flex items-center">
-                            {socialIcons[link.name] || <div className="mr-2 h-5 w-5"/>}
+                            {socialIcons[link.name] || <LinkIcon className="mr-2 h-5 w-5 text-muted-foreground" />}
                             {link.name} URL
                         </Label>
                         <Input 
@@ -88,7 +89,7 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings }) {
                 </div>
             ))}
         </div>
-        {state.errors?.socialLinks && <p className="text-sm text-destructive">Please enter valid URLs for social links.</p>}
+        {state.errors?.socialLinks && <p className="text-sm text-destructive">{state.errors.socialLinks[0]}</p>}
       </div>
 
 

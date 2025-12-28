@@ -262,7 +262,7 @@ export async function saveSeoSettings(prevState: State, formData: FormData) {
 
 const SocialLinkSchema = z.object({
   name: z.string(),
-  url: z.string().url().or(z.literal('')),
+  url: z.string().url({ message: 'Please enter a valid URL.' }).or(z.literal('')),
 });
 
 const SiteSettingsSchema = z.object({
@@ -274,14 +274,20 @@ const SiteSettingsSchema = z.object({
 
 
 export async function saveSiteSettings(prevState: State, formData: FormData) {
+  const socialLinks: { name: string; url: string }[] = [];
+  const entries = Array.from(formData.entries());
+
+  const socialLinkNames = entries
+    .filter(([key]) => key.startsWith('socialLinks[') && key.endsWith('][name]'))
+    .map(([, value]) => value as string);
   
-  const socialLinks = [];
-  for (let i = 0; formData.has(`socialLinks[${i}][name]`); i++) {
-    socialLinks.push({
-      name: formData.get(`socialLinks[${i}][name]`),
-      url: formData.get(`socialLinks[${i}][url]`),
-    });
-  }
+  const socialLinkUrls = entries
+    .filter(([key]) => key.startsWith('socialLinks[') && key.endsWith('][url]'))
+    .map(([, value]) => value as string);
+
+  socialLinkNames.forEach((name, index) => {
+    socialLinks.push({ name, url: socialLinkUrls[index] || '' });
+  });
 
   const validatedFields = SiteSettingsSchema.safeParse({
     email: formData.get('email'),
@@ -291,8 +297,13 @@ export async function saveSiteSettings(prevState: State, formData: FormData) {
   });
 
   if (!validatedFields.success) {
+    const fieldErrors = validatedFields.error.flatten().fieldErrors;
+    // The socialLinks error is nested, so we need to check if any of its children have errors.
+    const socialLinkError = fieldErrors.socialLinks ? 'Please enter valid URLs for social links.' : undefined;
+    const errors = { ...fieldErrors, socialLinks: socialLinkError ? [socialLinkError] : undefined };
+
     return {
-      errors: validatedFields.error.flatten().fieldErrors,
+      errors: errors,
       message: { type: 'error', text: 'Please check your inputs.' },
     };
   }
