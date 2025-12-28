@@ -1,7 +1,7 @@
 'use client';
 
 import { useFormStatus } from 'react-dom';
-import { useEffect, useRef, useActionState } from 'react';
+import { useEffect, useRef, useActionState, use } from 'react';
 import type { SiteSettings } from '@/lib/definitions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -37,10 +37,12 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings }) {
   }, [state, toast, router]);
 
   const socialIcons: { [key: string]: React.ReactNode } = {
-    GitHub: <Github className="mr-2 h-5 w-5" />,
-    Twitter: <Twitter className="mr-2 h-5 w-5" />,
-    Dribbble: <Dribbble className="mr-2 h-5 w-5" />,
+    GitHub: <Github className="mr-2 h-5 w-5 text-muted-foreground" />,
+    Twitter: <Twitter className="mr-2 h-5 w-5 text-muted-foreground" />,
+    Dribbble: <Dribbble className="mr-2 h-5 w-5 text-muted-foreground" />,
   };
+  
+  const socialLinks = settings?.socialLinks || [];
 
   return (
     <form ref={formRef} action={dispatch} className="space-y-8">
@@ -67,27 +69,31 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings }) {
 
       <div className="space-y-4">
         <h3 className="text-lg font-medium">Social Links</h3>
-        {settings?.socialLinks.map((link, index) => (
-            <div key={index} className="flex items-end gap-4">
-                <Input type="hidden" name={`socialLinks[${index}][name]`} value={link.name} />
-                <div className="flex-grow space-y-2">
-                    <Label htmlFor={`social-url-${index}`} className="flex items-center">
-                        {socialIcons[link.name]}
-                        {link.name} URL
-                    </Label>
-                    <Input 
-                        id={`social-url-${index}`}
-                        name={`socialLinks[${index}][url]`} 
-                        defaultValue={link.url}
-                        placeholder={`https://...`}
-                    />
+        <div className="space-y-4">
+            {socialLinks.map((link, index) => (
+                <div key={index} className="flex items-end gap-4">
+                    <Input type="hidden" name={`socialLinks[${index}][name]`} value={link.name} />
+                    <div className="flex-grow space-y-2">
+                        <Label htmlFor={`social-url-${index}`} className="flex items-center">
+                            {socialIcons[link.name] || <div className="mr-2 h-5 w-5"/>}
+                            {link.name} URL
+                        </Label>
+                        <Input 
+                            id={`social-url-${index}`}
+                            name={`socialLinks[${index}][url]`} 
+                            defaultValue={link.url}
+                            placeholder={`https://...`}
+                        />
+                    </div>
                 </div>
-            </div>
-        ))}
+            ))}
+        </div>
+        {state.errors?.socialLinks && <p className="text-sm text-destructive">Please enter valid URLs for social links.</p>}
       </div>
 
 
       <div className="flex justify-end gap-2">
+        <Button variant="outline" type="button" onClick={() => router.back()}>Cancel</Button>
         <SubmitButton />
       </div>
     </form>

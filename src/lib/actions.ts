@@ -260,45 +260,55 @@ export async function saveSeoSettings(prevState: State, formData: FormData) {
   }
 }
 
+const SocialLinkSchema = z.object({
+  name: z.string(),
+  url: z.string().url().or(z.literal('')),
+});
 
 const SiteSettingsSchema = z.object({
   email: z.string().email("Invalid email address"),
   phone: z.string().optional(),
   location: z.string().optional(),
-  'socialLinks[0][name]': z.string(),
-  'socialLinks[0][url]': z.string().url().or(z.literal('')),
-  'socialLinks[1][name]': z.string(),
-  'socialLinks[1][url]': z.string().url().or(z.literal('')),
-  'socialLinks[2][name]': z.string(),
-  'socialLinks[2][url]': z.string().url().or(z.literal('')),
+  socialLinks: z.array(SocialLinkSchema),
 });
 
 
 export async function saveSiteSettings(prevState: State, formData: FormData) {
-  const socialLinks = [
-    { name: formData.get('socialLinks[0][name]'), url: formData.get('socialLinks[0][url]') },
-    { name: formData.get('socialLinks[1][name]'), url: formData.get('socialLinks[1][url]') },
-    { name: formData.get('socialLinks[2][name]'), url: formData.get('socialLinks[2][url]') },
-  ];
+  
+  const socialLinks = [];
+  for (let i = 0; formData.has(`socialLinks[${i}][name]`); i++) {
+    socialLinks.push({
+      name: formData.get(`socialLinks[${i}][name]`),
+      url: formData.get(`socialLinks[${i}][url]`),
+    });
+  }
 
-  const dataToValidate = {
+  const validatedFields = SiteSettingsSchema.safeParse({
     email: formData.get('email'),
     phone: formData.get('phone'),
     location: formData.get('location'),
     socialLinks: socialLinks,
-  };
+  });
 
-  // We are not using zod for this one because of the complex array structure.
-  // Basic validation is still good.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: { type: 'error', text: 'Please check your inputs.' },
+    };
+  }
 
   const { firestore } = initializeFirebase();
   const settingsRef = doc(firestore, 'settings', 'site');
 
   try {
-    await setDoc(settingsRef, dataToValidate, { merge: true });
+    await setDoc(settingsRef, validatedFields.data, { merge: true });
     revalidatePath('/');
+    // Revalidate other pages that might use this data
+    revalidatePath('/contact');
+    
     return { message: { type: 'success', text: 'Site settings updated successfully.' } };
   } catch (error) {
+    console.error("Error saving site settings:", error);
     return { message: { type: 'error', text: 'Failed to save site settings.' } };
   }
 }
