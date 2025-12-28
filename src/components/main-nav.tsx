@@ -31,6 +31,8 @@ export function MainNav() {
             <Logo />
             <span className="hidden font-bold sm:inline-block">EditFlow Portfolio</span>
           </Link>
+        </div>
+        <div className="flex flex-1 items-center justify-end gap-6">
           <nav className="hidden items-center gap-6 text-sm md:flex">
             {navItems.map((item) => (
               <Link
@@ -45,13 +47,6 @@ export function MainNav() {
               </Link>
             ))}
           </nav>
-        </div>
-        <div className="flex flex-1 items-center justify-end gap-2">
-           <Button asChild>
-              <Link href={user ? "/admin" : "/login"}>
-                {user ? 'Admin Panel' : 'Login'}
-              </Link>
-            </Button>
           <Button
             variant="ghost"
             size="icon"
@@ -79,6 +74,18 @@ export function MainNav() {
                 {item.label}
               </Link>
             ))}
+             {user && (
+              <Link
+                href="/admin"
+                onClick={() => setIsMenuOpen(false)}
+                className={cn(
+                  'w-full rounded-md p-2 text-foreground/80 transition-colors hover:bg-accent/10',
+                  pathname.startsWith('/admin') ? 'text-foreground bg-accent/10' : 'text-foreground/60'
+                )}
+              >
+                Admin Panel
+              </Link>
+            )}
           </nav>
         </div>
       )}
