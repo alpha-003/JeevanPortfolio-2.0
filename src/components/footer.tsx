@@ -1,16 +1,19 @@
+'use client';
 import { Github, Twitter, Dribbble } from 'lucide-react';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import Logo from './logo';
+import { useDoc, useFirestore, useMemoFirebase } from '@/firebase';
+import type { SiteSettings } from '@/lib/definitions';
+import { doc } from 'firebase/firestore';
 
 export function Footer() {
     const currentYear = new Date().getFullYear();
+    const firestore = useFirestore();
+    const settingsRef = useMemoFirebase(() => doc(firestore, 'settings', 'site'), [firestore]);
+    const { data: settings } = useDoc<SiteSettings>(settingsRef);
 
-    const socialLinks = [
-        { name: 'GitHub', icon: Github, url: '#' },
-        { name: 'Twitter', icon: Twitter, url: '#' },
-        { name: 'Dribbble', icon: Dribbble, url: '#' },
-    ];
+    const socialLinks = settings?.socialLinks?.filter(link => link.url) || [];
 
     const navLinks = [
       { href: '/', label: 'Home' },
@@ -19,6 +22,12 @@ export function Footer() {
       { href: '/blog', label: 'Blog' },
       { href: '/contact', label: 'Contact' },
     ];
+    
+    const iconMap: { [key: string]: React.ElementType } = {
+        GitHub: Github,
+        Twitter: Twitter,
+        Dribbble: Dribbble,
+    };
 
     return (
         <footer className="border-t border-border/40 bg-card/20">
@@ -78,13 +87,16 @@ export function Footer() {
                     &copy; {currentYear} EditFlow Portfolio. All rights reserved.
                 </p>
                 <div className="flex items-center gap-2">
-                    {socialLinks.map((social) => (
+                    {socialLinks.map((social) => {
+                       const Icon = iconMap[social.name];
+                       return Icon ? (
                         <Button key={social.name} variant="ghost" size="icon" asChild>
                             <Link href={social.url} aria-label={social.name}>
-                                <social.icon className="h-4 w-4" />
+                                <Icon className="h-4 w-4" />
                             </Link>
                         </Button>
-                    ))}
+                       ) : null;
+                    })}
                 </div>
               </div>
             </div>

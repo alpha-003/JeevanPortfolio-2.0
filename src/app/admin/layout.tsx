@@ -22,6 +22,7 @@ import {
   LineChart,
   Home,
   LogOut,
+  Settings,
 } from 'lucide-react';
 import Logo from '@/components/logo';
 import { useAuth, useUser } from '@/firebase';
@@ -34,6 +35,7 @@ const navItems = [
   { href: '/admin/blog', label: 'Blog', icon: PenSquare },
   { href: '/admin/inbox', label: 'Inbox', icon: Mails },
   { href: '/admin/seo', label: 'SEO', icon: LineChart },
+  { href: '/admin/settings', label: 'Site Settings', icon: Settings },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -76,7 +78,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <SidebarMenuItem key={item.href}>
                 <Link href={item.href}>
                   <SidebarMenuButton
-                    isActive={pathname === item.href}
+                    isActive={pathname.startsWith(item.href)}
                     tooltip={item.label}
                   >
                     <item.icon />

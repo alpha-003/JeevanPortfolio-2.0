@@ -166,6 +166,58 @@
         "firstName",
         "lastName"
       ]
+    },
+    "SeoSettings": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "SeoSettings",
+      "type": "object",
+      "description": "Manages global SEO settings for the website.",
+      "properties": {
+        "siteTitle": {
+          "type": "string",
+          "description": "The default title for the website."
+        },
+        "metaDescription": {
+          "type": "string",
+          "description": "The default meta description for search engines."
+        },
+        "metaKeywords": {
+          "type": "array",
+          "description": "Default meta keywords for search engines.",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["siteTitle"]
+    },
+    "SiteSettings": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "SiteSettings",
+      "type": "object",
+      "description": "Manages global site settings like contact info and social links.",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "socialLinks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "required": ["name", "url"]
+          }
+        }
+      },
+      "required": ["email"]
     }
   },
   "auth": {
@@ -239,8 +291,24 @@
             }
           ]
         }
+      },
+      {
+        "path": "/settings/{settingId}",
+        "definition": {
+          "entityName": "SiteSettings",
+          "schema": {
+            "$ref": "#/backend/entities/SiteSettings"
+          },
+          "description": "Stores global site settings. Uses singleton documents like 'site' and 'seo'. Publicly readable, admin writable.",
+          "params": [
+            {
+              "name": "settingId",
+              "description": "The ID of the setting document (e.g., 'site', 'seo')."
+            }
+          ]
+        }
       }
     ],
-    "reasoning": "The Firestore structure is designed to support a portfolio website with an admin panel. It prioritizes authorization independence and follows a clear path-based ownership model where applicable. \n\n`PortfolioProjects`: Stores project information. Accessible to all users for viewing. Only admin users can create, update, or delete projects. \n\n`BlogPosts`: Stores blog posts. Accessible to all users for viewing. Only admin users can create, update, or delete posts.\n\n`ContactMessages`: Stores contact form submissions. Accessible and managed only by admin users. This collection allows QAPs because access is restricted based on admin role.\n\n`roles_admin`: This is a special collection used for admin authorization. The existence of a document with the user's `uid` as the document ID in this collection grants admin privileges.\n\n**Authorization Independence:** The structure avoids hierarchical dependencies. The `roles_admin` collection directly indicates admin status without needing to traverse or `get()` data from other collections. Admin authorization is checked independently based on the `request.auth.uid` and the existence of the user's ID in the `roles_admin` collection. \n\n**QAPs (Rules Are Not Filters):** List operations are secured using structural segregation. Public data (projects, posts) are in collections accessible for reading by all, while sensitive data (contact messages) are in collections that only admin users can access. The `roles_admin` collection enables secure authorization for administrative tasks. `list` operations are permitted only if the user has the necessary privileges, determined by the rules checking against `roles_admin`."
+    "reasoning": "The Firestore structure is designed to support a portfolio website with an admin panel. It prioritizes authorization independence and follows a clear path-based ownership model where applicable. \n\n`PortfolioProjects`: Stores project information. Accessible to all users for viewing. Only admin users can create, update, or delete projects. \n\n`BlogPosts`: Stores blog posts. Accessible to all users for viewing. Only admin users can create, update, or delete posts.\n\n`ContactMessages`: Stores contact form submissions. Accessible and managed only by admin users. This collection allows QAPs because access is restricted based on admin role.\n\n`roles_admin`: This is a special collection used for admin authorization. The existence of a document with the user's `uid` as the document ID in this collection grants admin privileges.\n\n`settings`: A new collection for site-wide configuration. It will contain singleton documents like 'site' and 'seo'. This data is publicly readable to render the site correctly, but only admins can modify it.\n\n**Authorization Independence:** The structure avoids hierarchical dependencies. The `roles_admin` collection directly indicates admin status without needing to traverse or `get()` data from other collections. Admin authorization is checked independently based on the `request.auth.uid` and the existence of the user's ID in the `roles_admin` collection. \n\n**QAPs (Rules Are Not Filters):** List operations are secured using structural segregation. Public data (projects, posts, settings) are in collections accessible for reading by all, while sensitive data (contact messages) are in collections that only admin users can access. The `roles_admin` collection enables secure authorization for administrative tasks. `list` operations are permitted only if the user has the necessary privileges, determined by the rules checking against `roles_admin`."
   }
 }

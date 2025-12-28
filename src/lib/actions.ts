@@ -29,6 +29,12 @@ export type State = {
     videoUrl?: string[];
     imageUrl?: string[];
     seoDescription?: string[];
+    siteTitle?: string[],
+    metaDescription?: string[],
+    metaKeywords?: string[],
+    phone?: string[],
+    location?: string[],
+    socialLinks?: string[]
   };
   message?: {
     type: 'success' | 'error';
@@ -215,4 +221,83 @@ export async function deleteBlogPost(id: string) {
     } catch (error) {
         return { message: { type: 'error', text: 'Failed to delete blog post.' } };
     }
+}
+
+
+const SeoSettingsSchema = z.object({
+  siteTitle: z.string().min(3, "Site title is required"),
+  metaDescription: z.string().optional(),
+  metaKeywords: z.string().transform((str) => str.split(',').map((s) => s.trim())),
+});
+
+export async function saveSeoSettings(prevState: State, formData: FormData) {
+  const validatedFields = SeoSettingsSchema.safeParse({
+    siteTitle: formData.get('siteTitle'),
+    metaDescription: formData.get('metaDescription'),
+    metaKeywords: formData.get('metaKeywords'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: { type: 'error', text: 'Please check your SEO inputs.' },
+    };
+  }
+
+  const { firestore } = initializeFirebase();
+  const settingsRef = doc(firestore, 'settings', 'seo');
+
+  try {
+    await setDocumentNonBlocking(settingsRef, validatedFields.data, { merge: true });
+    revalidatePath('/');
+    // Revalidate all pages for SEO changes to take effect
+    ['/', '/about', '/blog', '/contact', '/projects'].forEach(path => revalidatePath(path));
+    
+    return { message: { type: 'success', text: 'SEO settings updated successfully.' } };
+  } catch (error) {
+    return { message: { type: 'error', text: 'Failed to save SEO settings.' } };
+  }
+}
+
+
+const SiteSettingsSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  phone: z.string().optional(),
+  location: z.string().optional(),
+  'socialLinks[0][name]': z.string(),
+  'socialLinks[0][url]': z.string().url().or(z.literal('')),
+  'socialLinks[1][name]': z.string(),
+  'socialLinks[1][url]': z.string().url().or(z.literal('')),
+  'socialLinks[2][name]': z.string(),
+  'socialLinks[2][url]': z.string().url().or(z.literal('')),
+});
+
+
+export async function saveSiteSettings(prevState: State, formData: FormData) {
+  const socialLinks = [
+    { name: formData.get('socialLinks[0][name]'), url: formData.get('socialLinks[0][url]') },
+    { name: formData.get('socialLinks[1][name]'), url: formData.get('socialLinks[1][url]') },
+    { name: formData.get('socialLinks[2][name]'), url: formData.get('socialLinks[2][url]') },
+  ];
+
+  const dataToValidate = {
+    email: formData.get('email'),
+    phone: formData.get('phone'),
+    location: formData.get('location'),
+    socialLinks: socialLinks,
+  };
+
+  // We are not using zod for this one because of the complex array structure.
+  // Basic validation is still good.
+
+  const { firestore } = initializeFirebase();
+  const settingsRef = doc(firestore, 'settings', 'site');
+
+  try {
+    await setDocumentNonBlocking(settingsRef, dataToValidate, { merge: true });
+    revalidatePath('/');
+    return { message: { type: 'success', text: 'Site settings updated successfully.' } };
+  } catch (error) {
+    return { message: { type: 'error', text: 'Failed to save site settings.' } };
+  }
 }

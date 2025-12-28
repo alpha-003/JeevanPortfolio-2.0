@@ -29,3 +29,21 @@ export type Message = {
   dateReceived: string;
   isReplied: boolean;
 };
+
+export type SeoSettings = {
+  siteTitle: string;
+  metaDescription: string;
+  metaKeywords: string[];
+}
+
+export type SocialLink = {
+  name: string;
+  url: string;
+}
+
+export type SiteSettings = {
+  email: string;
+  phone: string;
+  location: string;
+  socialLinks: SocialLink[];
+}

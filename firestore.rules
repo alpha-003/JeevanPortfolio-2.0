@@ -15,6 +15,7 @@
  * - /blogPosts: Publicly readable blog articles.
  * - /contactMessages: Private messages submitted via the website's contact form.
  * - /roles_admin: A special collection that acts as a lookup table for admin roles.
+ * - /settings: Site-wide configuration data.
  *
  * @section Key Security Decisions
  * - Admin Role Management: The /roles_admin collection is the single source of truth for
@@ -130,6 +131,20 @@ service cloud.firestore {
       allow create: if false;
       allow update: if false;
       allow delete: if false;
+    }
+
+     /**
+     * @description Controls access to site-wide settings documents. These are public for
+     *              all visitors to read, but can only be modified by an administrator.
+     * @path /settings/{settingId}
+     * @principle Implements a "Public Read, Admin Write" access pattern for configuration.
+     */
+    match /settings/{settingId} {
+        allow get: if true;
+        allow list: if true;
+        allow create: if isAdmin();
+        allow update: if isAdmin();
+        allow delete: if isAdmin();
     }
   }
 }
