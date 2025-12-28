@@ -1,3 +1,4 @@
+
 {
   "entities": {
     "PortfolioProject": {
@@ -22,9 +23,9 @@
           "type": "string",
           "description": "URL of the main image for the project."
         },
-        "modelUrl": {
+        "videoUrl": {
           "type": "string",
-          "description": "URL of the 3D model (if applicable)."
+          "description": "URL of the video for the project (e.g. YouTube, Vimeo)."
         },
         "tags": {
           "type": "array",

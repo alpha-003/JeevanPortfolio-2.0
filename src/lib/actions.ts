@@ -26,6 +26,7 @@ export type State = {
     description?: string[];
     content?: string[];
     tags?: string[];
+    videoUrl?: string[];
   };
   message?: {
     type: 'success' | 'error';
@@ -85,6 +86,7 @@ const ProjectSchema = z.object({
   title: z.string().min(3, { message: 'Title must be at least 3 characters.' }),
   description: z.string().min(10, { message: 'Description must be at least 10 characters.' }),
   tags: z.string().transform((str) => str.split(',').map((s) => s.trim())),
+  videoUrl: z.string().url({ message: 'Please enter a valid URL.' }).optional().or(z.literal('')),
 });
 
 export async function saveProject(prevState: State, formData: FormData) {
@@ -92,6 +94,7 @@ export async function saveProject(prevState: State, formData: FormData) {
     title: formData.get('title'),
     description: formData.get('description'),
     tags: formData.get('tags'),
+    videoUrl: formData.get('videoUrl'),
   });
 
   if (!validatedFields.success) {

@@ -53,6 +53,13 @@ export function ProjectForm({ project }: { project?: Project }) {
       </div>
 
       <div className="space-y-2">
+        <Label htmlFor="videoUrl">Video URL</Label>
+        <Input id="videoUrl" name="videoUrl" defaultValue={project?.videoUrl} placeholder="e.g., https://www.youtube.com/watch?v=..." />
+        <p className="text-xs text-muted-foreground">Paste a link to your video (YouTube, Vimeo, etc.).</p>
+        {state.errors?.videoUrl && <p className="text-sm text-destructive">{state.errors.videoUrl[0]}</p>}
+      </div>
+
+      <div className="space-y-2">
         <Label htmlFor="tags">Tags</Label>
         <Input id="tags" name="tags" defaultValue={project?.tags?.join(', ')} placeholder="e.g., commercial, documentary, color grading" />
         <p className="text-xs text-muted-foreground">Separate tags with a comma.</p>

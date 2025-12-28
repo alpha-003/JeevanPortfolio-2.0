@@ -3,7 +3,7 @@ export type Project = {
   title: string;
   description: string;
   imageUrl: string;
-  modelUrl?: string;
+  videoUrl?: string;
   tags: string[];
   dateCreated: string;
 };
@@ -22,7 +22,7 @@ export type BlogPost = {
 };
 
 export type Message = {
-  id: string;
+  id:string;
   name: string;
   email: string;
   message: string;
