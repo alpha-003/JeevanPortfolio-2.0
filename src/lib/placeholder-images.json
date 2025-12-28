@@ -1,3 +1,64 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "project-1",
+      "description": "Abstract 3D render with vibrant colors",
+      "imageUrl": "https://images.unsplash.com/photo-1633596683562-4a47eb4983c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMDNkfGVufDB8fHx8MTc2NjkxNjE4NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract 3d"
+    },
+    {
+      "id": "project-2",
+      "description": "Futuristic city scape render",
+      "imageUrl": "https://images.unsplash.com/photo-1573767291321-c0af2eaf5266?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NjY5MDkxMTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "futuristic city"
+    },
+    {
+      "id": "project-3",
+      "description": "Character model in a dynamic pose",
+      "imageUrl": "https://images.unsplash.com/photo-1650081221669-fccab00c76a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjaGFyYWN0ZXIlMjBtb2RlbHxlbnwwfHx8fDE3NjY4Mjc5NTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "character model"
+    },
+    {
+      "id": "project-4",
+      "description": "Product visualization of a modern gadget",
+      "imageUrl": "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwcm9kdWN0JTIwZGVzaWdufGVufDB8fHx8MTc2NjkzMzY5OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "product design"
+    },
+    {
+      "id": "project-5",
+      "description": "Architectural visualization of a modern house",
+      "imageUrl": "https://images.unsplash.com/photo-1614595737766-4d7e1fd1406f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhcmNoaXRlY3R1cmFsJTIwZGVzaWdufGVufDB8fHx8MTc2NjkzMzY5OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "architectural design"
+    },
+    {
+      "id": "project-6",
+      "description": "Abstract particle simulation",
+      "imageUrl": "https://images.unsplash.com/photo-1653200256306-6dc84510dfb6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwYXJ0aWNsZSUyMHNpbXVsYXRpb258ZW58MHx8fHwxNzY2OTMzNjk4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "particle simulation"
+    },
+    {
+      "id": "blog-1",
+      "description": "Design software on a screen",
+      "imageUrl": "https://images.unsplash.com/photo-1581093806997-124204d9fa9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxkZXNpZ24lMjBzb2Z0d2FyZXxlbnwwfHx8fDE3NjY4NDc5OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "design software"
+    },
+    {
+      "id": "blog-2",
+      "description": "Color swatches and design tools",
+      "imageUrl": "https://images.unsplash.com/photo-1635722785255-a79d9fd2d2a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjb2xvciUyMHN3YXRjaGVzfGVufDB8fHx8MTc2NjkzMzY5OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "color swatches"
+    },
+    {
+      "id": "blog-3",
+      "description": "3D modeling interface",
+      "imageUrl": "https://images.unsplash.com/photo-1563520239648-a24e51d4b570?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHwzZCUyMG1vZGVsaW5nfGVufDB8fHx8MTc2NjkzMzY5OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "3d modeling"
+    },
+    {
+      "id": "hero-background",
+      "description": "Abstract dark background with purple light trails",
+      "imageUrl": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMGRhcmt8ZW58MHx8fHwxNzY2ODQ4NTMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract dark"
+    }
+  ]
 }
