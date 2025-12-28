@@ -1,0 +1,245 @@
+{
+  "entities": {
+    "PortfolioProject": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PortfolioProject",
+      "type": "object",
+      "description": "Represents a portfolio project showcased on the website.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the portfolio project."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the portfolio project."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the portfolio project."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the main image for the project."
+        },
+        "modelUrl": {
+          "type": "string",
+          "description": "URL of the 3D model (if applicable)."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tags associated with the project",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dateCreated": {
+          "type": "string",
+          "description": "Date the project was created.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description",
+        "imageUrl",
+        "dateCreated"
+      ]
+    },
+    "BlogPost": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "BlogPost",
+      "type": "object",
+      "description": "Represents a blog post on the website.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the blog post."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the blog post."
+        },
+        "content": {
+          "type": "string",
+          "description": "Content of the blog post (e.g., HTML or Markdown)."
+        },
+        "author": {
+          "type": "string",
+          "description": "Author of the blog post."
+        },
+        "datePublished": {
+          "type": "string",
+          "description": "Date the blog post was published.",
+          "format": "date-time"
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tags associated with the blog post",
+          "items": {
+            "type": "string"
+          }
+        },
+        "seoDescription": {
+          "type": "string",
+          "description": "SEO description for blog post."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "content",
+        "author",
+        "datePublished"
+      ]
+    },
+    "ContactMessage": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ContactMessage",
+      "type": "object",
+      "description": "Represents a contact message received from a website visitor.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the contact message."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the person sending the message."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the person sending the message.",
+          "format": "email"
+        },
+        "message": {
+          "type": "string",
+          "description": "The actual message content."
+        },
+        "dateReceived": {
+          "type": "string",
+          "description": "Date the message was received.",
+          "format": "date-time"
+        },
+        "isReplied": {
+          "type": "boolean",
+          "description": "Indicates whether the message has been replied to."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "message",
+        "dateReceived"
+      ]
+    },
+    "AdminUser": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "AdminUser",
+      "type": "object",
+      "description": "Represents an administrator user of the system.  Note: This entity does NOT store passwords. Authentication is assumed to be handled externally.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the admin user."
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the admin user.",
+          "format": "email"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "First name of the admin user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Last name of the admin user."
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "firstName",
+        "lastName"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/portfolioProjects/{projectId}",
+        "definition": {
+          "entityName": "PortfolioProject",
+          "schema": {
+            "$ref": "#/backend/entities/PortfolioProject"
+          },
+          "description": "Stores portfolio projects. Accessible to all users for reading. Only admins can create, update, or delete.",
+          "params": [
+            {
+              "name": "projectId",
+              "description": "The unique identifier for the portfolio project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/blogPosts/{blogPostId}",
+        "definition": {
+          "entityName": "BlogPost",
+          "schema": {
+            "$ref": "#/backend/entities/BlogPost"
+          },
+          "description": "Stores blog posts. Accessible to all users for reading. Only admins can create, update, or delete.",
+          "params": [
+            {
+              "name": "blogPostId",
+              "description": "The unique identifier for the blog post."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/contactMessages/{contactMessageId}",
+        "definition": {
+          "entityName": "ContactMessage",
+          "schema": {
+            "$ref": "#/backend/entities/ContactMessage"
+          },
+          "description": "Stores contact messages. Only accessible and managed by admins.",
+          "params": [
+            {
+              "name": "contactMessageId",
+              "description": "The unique identifier for the contact message."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/roles_admin/{adminId}",
+        "definition": {
+          "entityName": "AdminUser",
+          "schema": {
+            "$ref": "#/backend/entities/AdminUser"
+          },
+          "description": "Collection to store admin user IDs. Existence of a document grants admin privileges.",
+          "params": [
+            {
+              "name": "adminId",
+              "description": "The unique identifier for the admin user (should match the user's UID)."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to support a portfolio website with an admin panel. It prioritizes authorization independence and follows a clear path-based ownership model where applicable. \n\n`PortfolioProjects`: Stores project information. Accessible to all users for viewing. Only admin users can create, update, or delete projects. \n\n`BlogPosts`: Stores blog posts. Accessible to all users for viewing. Only admin users can create, update, or delete posts.\n\n`ContactMessages`: Stores contact form submissions. Accessible and managed only by admin users. This collection allows QAPs because access is restricted based on admin role.\n\n`roles_admin`: This is a special collection used for admin authorization. The existence of a document with the user's `uid` as the document ID in this collection grants admin privileges.\n\n**Authorization Independence:** The structure avoids hierarchical dependencies. The `roles_admin` collection directly indicates admin status without needing to traverse or `get()` data from other collections. Admin authorization is checked independently based on the `request.auth.uid` and the existence of the user's ID in the `roles_admin` collection. \n\n**QAPs (Rules Are Not Filters):** List operations are secured using structural segregation. Public data (projects, posts) are in collections accessible for reading by all, while sensitive data (contact messages) are in collections that only admin users can access. The `roles_admin` collection enables secure authorization for administrative tasks. `list` operations are permitted only if the user has the necessary privileges, determined by the rules checking against `roles_admin`."
+  }
+}
