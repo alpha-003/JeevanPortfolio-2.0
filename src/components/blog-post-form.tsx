@@ -1,7 +1,7 @@
 'use client';
 
-import { useFormStatus, useFormState } from 'react-dom';
-import { useEffect, useRef } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
+import { useFormStatus } from 'react-dom';
 import type { BlogPost } from '@/lib/definitions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,7 +26,7 @@ export function BlogPostForm({ post }: { post?: BlogPost }) {
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
   const initialState: State = { message: null, errors: {} };
-  const [state, dispatch] = useFormState(saveBlogPost, initialState);
+  const [state, dispatch] = useActionState(saveBlogPost, initialState);
   const { user } = useUser();
 
   useEffect(() => {
