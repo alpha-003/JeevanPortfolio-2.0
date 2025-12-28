@@ -51,11 +51,18 @@ export function ProjectForm({ project }: { project?: Project }) {
         <Textarea id="description" name="description" defaultValue={project?.description} required rows={8} />
         {state.errors?.description && <p className="text-sm text-destructive">{state.errors.description[0]}</p>}
       </div>
+      
+      <div className="space-y-2">
+        <Label htmlFor="imageUrl">Image URL</Label>
+        <Input id="imageUrl" name="imageUrl" defaultValue={project?.imageUrl} placeholder="e.g., https://res.cloudinary.com/.../image.jpg" required />
+        <p className="text-xs text-muted-foreground">Paste a link to your project's cover image.</p>
+        {state.errors?.imageUrl && <p className="text-sm text-destructive">{state.errors.imageUrl[0]}</p>}
+      </div>
 
       <div className="space-y-2">
         <Label htmlFor="videoUrl">Video URL</Label>
         <Input id="videoUrl" name="videoUrl" defaultValue={project?.videoUrl} placeholder="e.g., https://www.youtube.com/watch?v=..." />
-        <p className="text-xs text-muted-foreground">Paste a link to your video (YouTube, Vimeo, etc.).</p>
+        <p className="text-xs text-muted-foreground">Optional: Paste a link to your video (YouTube, Vimeo, etc.).</p>
         {state.errors?.videoUrl && <p className="text-sm text-destructive">{state.errors.videoUrl[0]}</p>}
       </div>
 

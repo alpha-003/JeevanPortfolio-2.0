@@ -27,6 +27,8 @@ export type State = {
     content?: string[];
     tags?: string[];
     videoUrl?: string[];
+    imageUrl?: string[];
+    seoDescription?: string[];
   };
   message?: {
     type: 'success' | 'error';
@@ -85,6 +87,7 @@ export async function sendContactMessage(prevState: State, formData: FormData) {
 const ProjectSchema = z.object({
   title: z.string().min(3, { message: 'Title must be at least 3 characters.' }),
   description: z.string().min(10, { message: 'Description must be at least 10 characters.' }),
+  imageUrl: z.string().url({ message: 'Please enter a valid image URL.' }),
   tags: z.string().transform((str) => str.split(',').map((s) => s.trim())),
   videoUrl: z.string().url({ message: 'Please enter a valid URL.' }).optional().or(z.literal('')),
 });
@@ -93,6 +96,7 @@ export async function saveProject(prevState: State, formData: FormData) {
   const validatedFields = ProjectSchema.safeParse({
     title: formData.get('title'),
     description: formData.get('description'),
+    imageUrl: formData.get('imageUrl'),
     tags: formData.get('tags'),
     videoUrl: formData.get('videoUrl'),
   });
@@ -106,10 +110,7 @@ export async function saveProject(prevState: State, formData: FormData) {
 
   const { firestore } = initializeFirebase();
   const id = formData.get('id') as string;
-  const data = {
-    ...validatedFields.data,
-    imageUrl: 'https://picsum.photos/seed/project-placeholder/800/600', // Placeholder
-  };
+  const data = validatedFields.data;
 
   try {
     if (id) {
@@ -152,6 +153,7 @@ const BlogPostSchema = z.object({
   title: z.string().min(3, { message: 'Title must be at least 3 characters.' }),
   content: z.string().min(10, { message: 'Content must be at least 10 characters.' }),
   author: z.string().min(2, { message: 'Author name is required.' }),
+  imageUrl: z.string().url({ message: 'Please enter a valid image URL.' }),
   seoDescription: z.string().optional(),
   tags: z.string().transform((str) => str.split(',').map((s) => s.trim())),
 });
@@ -162,6 +164,7 @@ export async function saveBlogPost(prevState: State, formData: FormData) {
     title: formData.get('title'),
     content: formData.get('content'),
     author: formData.get('author'),
+    imageUrl: formData.get('imageUrl'),
     seoDescription: formData.get('seoDescription'),
     tags: formData.get('tags'),
   });
@@ -178,7 +181,6 @@ export async function saveBlogPost(prevState: State, formData: FormData) {
   const data = {
     ...validatedFields.data,
     slug: validatedFields.data.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
-    imageUrl: 'https://picsum.photos/seed/blog-placeholder/800/400',
   };
 
   try {

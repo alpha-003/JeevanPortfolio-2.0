@@ -55,6 +55,13 @@ export function BlogPostForm({ post }: { post?: BlogPost }) {
         {state.errors?.content && <p className="text-sm text-destructive">{state.errors.content[0]}</p>}
       </div>
       
+      <div className="space-y-2">
+        <Label htmlFor="imageUrl">Image URL</Label>
+        <Input id="imageUrl" name="imageUrl" defaultValue={post?.imageUrl} placeholder="e.g., https://res.cloudinary.com/.../image.jpg" required />
+        <p className="text-xs text-muted-foreground">Paste a link to the blog post's cover image.</p>
+        {state.errors?.imageUrl && <p className="text-sm text-destructive">{state.errors.imageUrl[0]}</p>}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="tags">Tags</Label>
