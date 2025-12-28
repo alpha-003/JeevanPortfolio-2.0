@@ -59,6 +59,18 @@
       "description": "Abstract dark background with purple light trails",
       "imageUrl": "https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMGRhcmt8ZW58MHx8fHwxNzY2ODQ4NTMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "abstract dark"
+    },
+    {
+      "id": "about-portrait",
+      "description": "Portrait of a creative person in a studio",
+      "imageUrl": "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjcmVhdGl2ZSUyMHBvcnRyYWl0fGVufDB8fHx8MTc2OTIyMDY1NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "creative portrait"
+    },
+    {
+      "id": "cta-background",
+      "description": "Abstract geometric background with purple tones",
+      "imageUrl": "https://images.unsplash.com/photo-1557682250-33bd709cbe85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMHB1cnBsZXxlbnwwfHx8fDE3NjkyMjA3MDB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract purple"
     }
   ]
 }

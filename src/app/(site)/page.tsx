@@ -1,12 +1,36 @@
 import Image from 'next/image';
-import { projects } from '@/lib/data';
+import { projects, blogPosts } from '@/lib/data';
 import { ProjectCard3D } from '@/components/project-card-3d';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { Cuboid, WandSparkles, PenTool, ArrowRight } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import { format } from 'date-fns';
+
+
+const services = [
+  {
+    icon: Cuboid,
+    title: '3D Modeling & Visualization',
+    description: 'Bringing concepts to life with high-fidelity models for products, architecture, and characters.',
+  },
+  {
+    icon: WandSparkles,
+    title: 'Motion Graphics & VFX',
+    description: 'Creating captivating animations and visual effects that tell a story and engage audiences.',
+  },
+  {
+    icon: PenTool,
+    title: 'Creative & Art Direction',
+    description: 'Guiding the visual style and narrative of projects to ensure a cohesive and impactful result.',
+  },
+]
 
 export default function HomePage() {
   const heroBg = PlaceHolderImages.find(p => p.id === 'hero-background');
+  const ctaBg = PlaceHolderImages.find(p => p.id === 'cta-background');
+  const recentPosts = blogPosts.slice(0, 3);
 
   return (
     <div className="flex flex-col">
@@ -32,7 +56,7 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex gap-4">
             <Button size="lg" asChild>
-              <Link href="#portfolio">View Work</Link>
+              <Link href="/projects">View Work</Link>
             </Button>
             <Button size="lg" variant="secondary" asChild>
               <Link href="/contact">Get in Touch</Link>
@@ -44,16 +68,123 @@ export default function HomePage() {
       <section id="portfolio" className="container py-16 md:py-24">
         <div className="mb-12 text-center">
           <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
-            Portfolio Showcase
+            Featured Projects
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
             From concept to creation, here are some of my favorite projects.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.slice(0,3).map((project) => (
             <ProjectCard3D key={project.id} project={project} />
           ))}
+        </div>
+        <div className="mt-12 text-center">
+            <Button asChild size="lg" variant="outline">
+                <Link href="/projects">
+                    View All Projects <ArrowRight className="ml-2" />
+                </Link>
+            </Button>
+        </div>
+      </section>
+      
+      <section id="services" className="bg-card/20 py-16 md:py-24">
+        <div className="container">
+          <div className="mb-12 text-center">
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+              Creative Services
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              Offering a range of services to bring your vision to life.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            {services.map((service) => (
+              <div key={service.title} className="flex flex-col items-center text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <service.icon className="h-8 w-8" />
+                </div>
+                <h3 className="mt-6 text-xl font-bold">{service.title}</h3>
+                <p className="mt-2 text-muted-foreground">{service.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="blog" className="container py-16 md:py-24">
+        <div className="mb-12 text-center">
+          <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+            From the Studio
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+            The latest thoughts, tutorials, and behind-the-scenes on design and 3D art.
+          </p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {recentPosts.map((post) => (
+          <Card key={post.id} className="flex flex-col overflow-hidden">
+            <Link href={`/blog/${post.slug}`} className="block">
+              <Image
+                src={post.imageUrl}
+                alt={post.title}
+                width={800}
+                height={400}
+                data-ai-hint={post.imageHint}
+                className="h-48 w-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+            </Link>
+            <CardHeader>
+              <CardTitle className="font-headline text-xl">
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+              </CardTitle>
+              <p className="text-sm text-muted-foreground">
+                {format(new Date(post.publishedAt), 'MMMM d, yyyy')}
+              </p>
+            </CardHeader>
+            <CardContent className="flex-grow">
+              <CardDescription>{post.summary}</CardDescription>
+            </CardContent>
+            <CardFooter>
+              <Button variant="secondary" asChild>
+                <Link href={`/blog/${post.slug}`}>Read More</Link>
+              </Button>
+            </CardFooter>
+          </Card>
+        ))}
+      </div>
+       <div className="mt-12 text-center">
+            <Button asChild size="lg" variant="outline">
+                <Link href="/blog">
+                    Visit the Blog <ArrowRight className="ml-2" />
+                </Link>
+            </Button>
+        </div>
+      </section>
+
+      <section className="relative py-20 md:py-32">
+        {ctaBg && (
+            <Image
+                src={ctaBg.imageUrl}
+                alt={ctaBg.description}
+                fill
+                data-ai-hint={ctaBg.imageHint}
+                className="object-cover"
+            />
+        )}
+        <div className="absolute inset-0 bg-primary/80" />
+        <div className="relative z-10 container text-center text-primary-foreground">
+            <h2 className="font-headline text-3xl font-bold tracking-tighter sm:text-4xl">
+                Have a Project in Mind?
+            </h2>
+            <p className="mx-auto mt-2 max-w-2xl">
+                Let's collaborate to create something extraordinary. I'm currently available for freelance work and new opportunities.
+            </p>
+            <div className="mt-8">
+                <Button size="lg" variant="secondary" asChild>
+                    <Link href="/contact">Start a Conversation</Link>
+                </Button>
+            </div>
         </div>
       </section>
     </div>

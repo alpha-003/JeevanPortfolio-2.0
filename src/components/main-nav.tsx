@@ -10,7 +10,9 @@ import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 
 const navItems = [
-  { href: '/', label: 'Portfolio' },
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/about', label: 'About' },
   { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
 ];
@@ -34,7 +36,7 @@ export function MainNav() {
                 href={item.href}
                 className={cn(
                   'transition-colors hover:text-foreground/80',
-                  pathname === item.href ? 'text-foreground' : 'text-foreground/60'
+                  (pathname === item.href || (item.href === '/projects' && pathname.startsWith('/projects'))) ? 'text-foreground' : 'text-foreground/60'
                 )}
               >
                 {item.label}
