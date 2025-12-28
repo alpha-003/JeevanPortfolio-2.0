@@ -54,10 +54,11 @@ service cloud.firestore {
     /**
      * Checks if the currently authenticated user is an administrator.
      * Admin status is granted if a document with the user's UID exists in the
-     * /roles_admin collection.
+     * /roles_admin collection. For development, we also whitelist a specific UID.
      */
     function isAdmin() {
-      return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+      return isSignedIn() && 
+        (exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid)) || request.auth.uid == "rMr0vdKtoOd7I3eRlonGHZNdyss2");
     }
 
     // -------------------------------------------------------------------------
